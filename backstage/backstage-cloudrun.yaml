@@ -1,0 +1,61 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: backstage
+  namespace: '243273443659'
+  selfLink: /apis/serving.knative.dev/v1/namespaces/243273443659/services/backstage
+  uid: f424e54a-3299-4f85-b72b-da0e6070c2a5
+  resourceVersion: AAYcWlhXaGg
+  generation: 4
+  creationTimestamp: '2024-07-03T16:25:24.885510Z'
+  labels:
+    run.googleapis.com/satisfiesPzs: 'true'
+    cloud.googleapis.com/location: us-east4
+  annotations:
+    serving.knative.dev/creator: jinal.61083926@ltimindtree.com
+    serving.knative.dev/lastModifier: jinal.61083926@ltimindtree.com
+    run.googleapis.com/client-name: cloud-console
+    run.googleapis.com/launch-stage: BETA
+    run.googleapis.com/operation-id: 3d4c9412-6f08-41e1-a08c-33b31c60024d
+    run.googleapis.com/ingress: all
+    run.googleapis.com/ingress-status: all
+    run.googleapis.com/minScale: '1'
+spec:
+  template:
+    metadata:
+      labels:
+        client.knative.dev/nonce: 4e9eb44f-af19-4e2f-a533-a1990a85d1f8
+        run.googleapis.com/startupProbeType: Default
+      annotations:
+        autoscaling.knative.dev/maxScale: '100'
+        run.googleapis.com/cloudsql-instances: png-gcp-learning-poc:us-east4:backstage
+        run.googleapis.com/client-name: cloud-console
+        run.googleapis.com/startup-cpu-boost: 'true'
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      serviceAccountName: sa-cicd@png-gcp-learning-poc.iam.gserviceaccount.com
+      containers:
+      - name: backstage-1
+        image: us-east4-docker.pkg.dev/png-gcp-learning-poc/backstage/backstage:1.0.0
+        ports:
+          - containerPort: 7007
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+        startupProbe:
+          timeoutSeconds: 240
+          periodSeconds: 240
+          failureThreshold: 1
+          tcpSocket:
+            port: 7007
+      - name: sql-proxy
+        image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.11.4
+        args:
+            - "--structured-logs"
+            - "--port=5432"
+            - "png-gcp-learning-poc:us-east4:backstage"
+  traffic:
+  - percent: 100
+    latestRevision: true
