@@ -42,6 +42,8 @@ import { UnifiedThemeProvider } from '@backstage/theme';
 import LightIcon from '@material-ui/icons/WbSunny';
 import { ltimTheme } from './ltim-theme/ltimTheme';
 
+import { githubAuthApiRef } from '@backstage/core-plugin-api';
+
 const app = createApp({
   apis,
   bindRoutes({ bind }) {

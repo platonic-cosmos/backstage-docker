@@ -32,8 +32,9 @@ auth:
   providers:
     github:
       development:
-        clientId: "#AUTH_GITHUB_CLIENT_ID#"
-        clientSecret: "#AUTH_GITHUB_CLIENT_SECRET#"
+        #clientId: "#AUTH_GITHUB_CLIENT_ID#"
+        #clientSecret: "#AUTH_GITHUB_CLIENT_SECRET#"
+        $include: github-clients-credentials.yaml
         ## uncomment if using GitHub Enterprise
         # enterpriseInstanceUrl: ${AUTH_GITHUB_ENTERPRISE_INSTANCE_URL}
         signIn:
@@ -48,7 +49,8 @@ sonarqube:
   instances:
   - name: ltimindtreeSonarqube
     baseUrl: https://sonarqube-so2knvar.mindtree.opsera.io
-    apiKey: #SONARCLOUD_TOKEN#
+    #apiKey: #SONARCLOUD_TOKEN#
+    $include: sonarqube-credentials.yaml
 
 catalog:
   # Overrides the default list locations from app-config.yaml as these contain example data.
