@@ -15,3 +15,40 @@ metadata:
 spec:
   type: team
   children: []
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: de-ims
+spec:
+  memberOf: [de-ims]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: de-ims
+spec:
+  type: poc-group
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: jinaldesailive
+spec:
+  memberOf: [de-ims]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: sudhanshu-abhi-2
+spec:
+  memberOf: [de-ims]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: jintov
+spec:
+  memberOf: [de-ims]

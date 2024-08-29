@@ -30,8 +30,25 @@ backend:
 
 auth:
   providers:
+    github:
+      development:
+        clientId: "#AUTH_GITHUB_CLIENT_ID#"
+        clientSecret: "#AUTH_GITHUB_CLIENT_SECRET#"
+        ## uncomment if using GitHub Enterprise
+        # enterpriseInstanceUrl: ${AUTH_GITHUB_ENTERPRISE_INSTANCE_URL}
+        signIn:
+          resolvers:
+            # Matches the GitHub username with the Backstage user entity name.
+            # See https://backstage.io/docs/auth/github/provider#resolvers for more resolvers.
+            - resolver: usernameMatchingUserEntityName
     guest:
       dangerouslyAllowOutsideDevelopment: true
+
+sonarqube:
+  instances:
+  - name: ltimindtreeSonarqube
+    baseUrl: https://sonarqube-so2knvar.mindtree.opsera.io
+    apiKey: #SONARCLOUD_TOKEN#
 
 catalog:
   # Overrides the default list locations from app-config.yaml as these contain example data.
@@ -40,7 +57,7 @@ catalog:
   rules:
     - allow: [Component, System, API, Resource, Location, Template]
   locations:
-    - type: file
-      target: ../../examples/template/template.yaml
+    - type: url
+      target: https://github.com/platonic-cosmos/backstage-docker/backstage/blob/main/examples/org.yaml
       rules:
-        - allow: [Template]
+        - allow: [User, Group]
